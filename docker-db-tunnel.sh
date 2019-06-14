@@ -16,7 +16,7 @@ DB_CONTAINER_NAME_PATTERN=${DB_CONTAINER_NAME_PATTERN:-'mariadb|mysql'}
 IS_TUNNEL_CONTAINER_RUNNING=$(docker inspect -f "{{.State.Running}}" ${DB_TUNNEL_CONTAINER_NAME} 2> /dev/null)
 if [ "$IS_TUNNEL_CONTAINER_RUNNING" == "" ]; then
     echo "Running db tunnel container ${GREEN}${DB_TUNNEL_CONTAINER_NAME}${RESTORE} on port ${GREEN}${DB_TUNNEL_EXPOSED_PORT}${RESTORE}"
-    docker run -d -p ${DB_TUNNEL_EXPOSED_PORT}:22 --restart=always --name ${DB_TUNNEL_CONTAINER_NAME} sickp/alpine-sshd
+    docker run -d -p ${DB_TUNNEL_EXPOSED_PORT}:22 --restart=always --name ${DB_TUNNEL_CONTAINER_NAME} sickp/alpine-sshd:7.4
 elif [ "$IS_TUNNEL_CONTAINER_RUNNING" == "false" ]; then
     echo "Starting existing db tunnel container with name: ${GREEN}${DB_TUNNEL_CONTAINER_NAME}${RESTORE}"
     docker start ${DB_TUNNEL_CONTAINER_NAME} 1> /dev/null
